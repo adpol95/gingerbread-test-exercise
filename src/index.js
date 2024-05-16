@@ -24,12 +24,12 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       {
-        path: "/",
+        path: "/gingerbread-test-exercise",
         element: <Auth/>,
       },
       {
         path: "main",
-        element: <RequireAuth fallbackPath={'/'}>
+        element: <RequireAuth fallbackPath={'/gingerbread-test-exercise'}>
           <MainNet/>
         </RequireAuth>
       }

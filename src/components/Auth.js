@@ -1,7 +1,7 @@
 import {useState} from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import {useNavigate} from "react-router";
-import {Button, Container, Link, TextField} from "@mui/material";
+import {Button, Container, TextField} from "@mui/material";
 
 function Auth() {
     const [loginIn, setLoginIn] = useState('');
@@ -38,7 +38,12 @@ function Auth() {
             })
     }
     return (
-        <Container>
+        <Container sx={{
+                       height: "100vh",
+                       display: "flex",
+                       alignItems: "center",
+                       justifyContent: "center"
+                   }}>
         <form onSubmit={submiter} >
                 <div>
                     <label>
