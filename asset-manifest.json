@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gingerbread-test-exercise/static/css/main.f855e6bc.css",
-    "main.js": "/gingerbread-test-exercise/static/js/main.fd3e6471.js",
+    "main.css": "/gingerbread-test-exercise/static/css/main.e6c13ad2.css",
+    "main.js": "/gingerbread-test-exercise/static/js/main.bc5fbe74.js",
     "static/js/453.a1d838be.chunk.js": "/gingerbread-test-exercise/static/js/453.a1d838be.chunk.js",
     "index.html": "/gingerbread-test-exercise/index.html",
-    "main.f855e6bc.css.map": "/gingerbread-test-exercise/static/css/main.f855e6bc.css.map",
-    "main.fd3e6471.js.map": "/gingerbread-test-exercise/static/js/main.fd3e6471.js.map",
+    "main.e6c13ad2.css.map": "/gingerbread-test-exercise/static/css/main.e6c13ad2.css.map",
+    "main.bc5fbe74.js.map": "/gingerbread-test-exercise/static/js/main.bc5fbe74.js.map",
     "453.a1d838be.chunk.js.map": "/gingerbread-test-exercise/static/js/453.a1d838be.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.fd3e6471.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.bc5fbe74.js"
   ]
 }
