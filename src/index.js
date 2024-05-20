@@ -13,31 +13,31 @@ import "./App.css"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#3949ab',
+    palette: {
+        primary: {
+            main: '#3949ab',
+        },
+        secondary: orange,
+        third: {
+            main: '#b26500',
+            contrastText: '#fff',
+        },
+        fourth: {
+            main: "#e3f2fd",
+        }
     },
-    secondary: orange,
-    third:  {
-      main: '#b26500',
-      contrastText: '#fff',
-    },
-    fourth: {
-      main: "#e3f2fd",
-    }
-  },
 });
 const router = createBrowserRouter([
-  {
-    path: "/gingerbread-test-exercise",
-    element: decodeURIComponent(document.cookie).includes("token") ? <MainNet/> : <Auth/>,
-  }
+    {
+        path: "/gingerbread-test-exercise",
+        element: decodeURIComponent(document.cookie).includes("token") ? <MainNet/> : <Auth/>,
+    }
 ]);
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <RouterProvider router={router}/>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+        <RouterProvider router={router}/>
+    </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

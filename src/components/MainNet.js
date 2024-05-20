@@ -43,49 +43,49 @@ function MainNet() {
                 console.log(err);
                 alert("При попытке получения данных для таблицы произошла ошибка. Повторите попытку позже.")
             })
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         const readySetData = {
             "documentStatus": dataReady === "new" ? newLine[0] : curChange[1],
-            "employeeNumber":dataReady === "new" ? newLine[1]  : curChange[2],
-            "documentType": dataReady === "new" ? newLine[2]  : curChange[3],
-            "documentName": dataReady === "new" ? newLine[3]  : curChange[4],
+            "employeeNumber": dataReady === "new" ? newLine[1] : curChange[2],
+            "documentType": dataReady === "new" ? newLine[2] : curChange[3],
+            "documentName": dataReady === "new" ? newLine[3] : curChange[4],
             "companySignatureName": dataReady === "new" ? newLine[4] : curChange[5],
             "employeeSignatureName": dataReady === "new" ? newLine[5] : curChange[6],
-            "employeeSigDate":  dataReady === "new" ? newLine[6] + "T00:00:00.000Z" : curChange[7],
+            "employeeSigDate": dataReady === "new" ? newLine[6] + "T00:00:00.000Z" : curChange[7],
             "companySigDate": dataReady === "new" ? newLine[7] + "T00:00:00.000Z" : curChange[8],
-            }
+        }
         if (!changerState && dataReady === "change") {
-        fetch(process.env.REACT_APP_STATE1 + "/ru/data/v3/testmethods/docs/userdocs/set/" + curChange[0], {
+            fetch(process.env.REACT_APP_STATE1 + "/ru/data/v3/testmethods/docs/userdocs/set/" + curChange[0], {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 headers: {
-                "Content-Type": "application/json",
-                "x-auth": token
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify(readySetData), // body data type must match "Content-Type" header
-        })
-            .then(res => res.json())
-            .then(response => {
-                console.log(response);
-                setCurChange([...data.map(el => el.id === curChange[0] ? {id: curChange[0], ...readySetData} : el)]);
-                setData([...data.map(el => el.id === curChange[0] ? {id: curChange[0], ...readySetData,} : el)]);
-            })
-            .catch(err => {
-                console.log(err);
-                alert("Не удалось измнеить текущую позицию. Повторите попытку позже.")
-            })
-        }
-        if (dataReady === "delete") {
-            fetch(process.env.REACT_APP_STATE1 + "/ru/data/v3/testmethods/docs/userdocs/delete/" + curChange, {
-                    method: "POST", // *GET, POST, PUT, DELETE, etc.
-                    headers: {
                     "Content-Type": "application/json",
                     "x-auth": token
                     // 'Content-Type': 'application/x-www-form-urlencoded',
-                    },
+                },
+                body: JSON.stringify(readySetData), // body data type must match "Content-Type" header
+            })
+                .then(res => res.json())
+                .then(response => {
+                    console.log(response);
+                    setCurChange([...data.map(el => el.id === curChange[0] ? {id: curChange[0], ...readySetData} : el)]);
+                    setData([...data.map(el => el.id === curChange[0] ? {id: curChange[0], ...readySetData,} : el)]);
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert("Не удалось измнеить текущую позицию. Повторите попытку позже.")
+                })
+        }
+        if (dataReady === "delete") {
+            fetch(process.env.REACT_APP_STATE1 + "/ru/data/v3/testmethods/docs/userdocs/delete/" + curChange, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth": token
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
             })
                 .then(res => res.json())
                 .then(response => {
@@ -100,13 +100,13 @@ function MainNet() {
         }
         if (dataReady === "new") {
             fetch(process.env.REACT_APP_STATE1 + "/ru/data/v3/testmethods/docs/userdocs/create", {
-                    method: "POST", // *GET, POST, PUT, DELETE, etc.
-                    headers: {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
                     "Content-Type": "application/json",
                     "x-auth": token,
                     // 'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: JSON.stringify(readySetData)
+                },
+                body: JSON.stringify(readySetData)
             })
                 .then(res => res.json())
                 .then(response => {
@@ -131,14 +131,14 @@ function MainNet() {
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "fourth.main",
-                   }}>
-                       <Typography variant="h2" sx={{
-                                       pb: 5,
-                                       color: "secondary.main"
-                                   }}>
-                                       Тестовое задание.
-                                   </Typography>
-                                   <TableContainer component={Paper} sx={{textAlign: "center"}}>
+        }}>
+            <Typography variant="h2" sx={{
+                pb: 5,
+                color: "secondary.main"
+            }}>
+                Тестовое задание.
+            </Typography>
+            <TableContainer component={Paper} sx={{textAlign: "center"}}>
                 {status ?
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <TableHead>
@@ -151,109 +151,119 @@ function MainNet() {
                                 <TableCell align="right"><b>Подписанный документ со стороны работника</b></TableCell>
                                 <TableCell align="right"><b>Дата подписания со стороны компании</b></TableCell>
                                 <TableCell align="right"><b>Дата подписания со стороны работника</b></TableCell>
-                                <TableCell align="right">{changerState ? <b> Подтвердить</b> : <b>Изменить</b>}</TableCell>
+                                <TableCell align="right">{changerState ? <b> Подтвердить</b> :
+                                    <b>Изменить</b>}</TableCell>
                                 <TableCell align="right">{changerState ? <b> Закрыть </b> : <b>Удалить</b>}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 data.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                >
-                                    {Object.values(row).map((el, i) => i < 1 ? "" :
+                                    <TableRow
+                                        key={row.id}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                    >
+                                        {Object.values(row).map((el, i) => i < 1 ? "" :
                                             <TableCell align={i < 2 ? "left" : "right"}>
                                                 {curChange[0] === row.id ?
-                                                    <TextField type={i > 6 ? "date" : "text"} id="standard-basic" variant="standard" value={i > 6 ? curChange[i].toString().substring(0, 10) : curChange[i]} onChange={(event) => {
+                                                    <TextField type={i > 6 ? "date" : "text"} id="standard-basic"
+                                                               variant="standard"
+                                                               value={i > 6 ? curChange[i].toString().substring(0, 10) : curChange[i]}
+                                                               onChange={(event) => {
                                                                    setCurChange(curChange.map((elm, idx) => {
                                                                        if (i === idx) return i > 6 ? event.target.value + "T00:00:00.000Z" : event.target.value
                                                                        else return elm
                                                                    }));
-                                                            }}/> :
-                                            <Typography>{i > 6 ? el.substring(0, 10) : el}</Typography>}
-                                    </TableCell>)}
+                                                               }}/> :
+                                                    <Typography>{i > 6 ? el.substring(0, 10) : el}</Typography>}
+                                            </TableCell>)}
 
-                                    <TableCell align="right">
-                                        <Button type={curChange[0] === row.id ? "submit" : ""} variant="outlined" disabled={changerState && curChange[0] !== row.id} onClick={() => {
-                                                    if (!changerState) setCurChange(Object.values(curChange.find(el => row.id === el.id)));
-                                                    else {
-                                                        setStatus(false);
-                                                        setDataReady("change");
-                                                    }
-                                                    setChangerState(!changerState);
-                                                }}>
-                                            {changerState && curChange[0] === row.id ? <div>&#10003;</div>  : <div>&#9998;</div>}
-                                        </Button>
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <Button variant="contained" disabled={changerState && curChange[0] !== row.id} sx={{
-                                                    }
-                                                } onClick={() => {
-                                                    if (changerState) {
-                                                        setCurChange([...data]);
+                                        <TableCell align="right">
+                                            <Button type={curChange[0] === row.id ? "submit" : ""} variant="outlined"
+                                                    disabled={changerState && curChange[0] !== row.id} onClick={() => {
+                                                if (!changerState) setCurChange(Object.values(curChange.find(el => row.id === el.id)));
+                                                else {
+                                                    setStatus(false);
+                                                    setDataReady("change");
+                                                }
+                                                setChangerState(!changerState);
+                                            }}>
+                                                {changerState && curChange[0] === row.id ? <div>&#10003;</div> :
+                                                    <div>&#9998;</div>}
+                                            </Button>
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            <Button variant="contained"
+                                                    disabled={changerState && curChange[0] !== row.id} sx={{}
+                                            } onClick={() => {
+                                                if (changerState) {
+                                                    setCurChange([...data]);
 
-                                                    } else {
-                                                        setStatus(false);
-                                                        setCurChange(row.id)
-                                                        setDataReady("delete");
-                                                    }
-                                                    setChangerState(false);
-                                                    }}>
-                                            &#10006;
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                                } else {
+                                                    setStatus(false);
+                                                    setCurChange(row.id)
+                                                    setDataReady("delete");
+                                                }
+                                                setChangerState(false);
+                                            }}>
+                                                &#10006;
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
                             {newLineState ?
                                 <TableRow
                                     key={2}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                        >
-                                            {newLine.map((el, i) => <TableCell align={i < 1 ? "left" : "right"}>
-                                                <TextField type={i > 5 ? "date" : "text"} id="standard-basic" variant="standard" value={newLine[i]} onChange={(event) => {
-                                                          setNewLine(newLine.map((elm, idx) => {
-                                                            if (i === idx) return event.target.value
-                                                            else return elm}));
-                                                           }}/>
-                                            </TableCell>
-                                            )}
-                                            <TableCell align="right">
-                                                <Button type="submit" variant="outlined" onClick={() => {
-                                                            setStatus(false);
-                                                            setDataReady("new");
-                                                            setNewLineState(false)
-                                                        }}>
-                                                    &#10003;
-                                                </Button>
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <Button variant="contained" onClick={() => setNewLineState(false)}>
-                                                    &#10006;
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow> :
-                                        <TableRow>
-                                            <TableCell align="right">
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    {newLine.map((el, i) => <TableCell align={i < 1 ? "left" : "right"}>
+                                            <TextField type={i > 5 ? "date" : "text"} id="standard-basic" variant="standard"
+                                                       value={newLine[i]} onChange={(event) => {
+                                                setNewLine(newLine.map((elm, idx) => {
+                                                    if (i === idx) return event.target.value
+                                                    else return elm
+                                                }));
+                                            }}/>
+                                        </TableCell>
+                                    )}
+                                    <TableCell align="right">
+                                        <Button type="submit" variant="outlined" onClick={() => {
+                                            setStatus(false);
+                                            setDataReady("new");
+                                            setNewLineState(false)
+                                        }}>
+                                            &#10003;
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Button variant="contained" onClick={() => setNewLineState(false)}>
+                                            &#10006;
+                                        </Button>
+                                    </TableCell>
+                                </TableRow> :
+                                <TableRow>
+                                    <TableCell align="right">
                                         <Button variant="contained" onClick={() => setNewLineState(true)} color="third">
                                             <Typography>
                                                 Добавить запись
                                             </Typography>
                                         </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                }
+                                    </TableCell>
+                                </TableRow>
+                            }
                         </TableBody>
-                    </Table> : <div className="lds-ripple"><div></div><div></div></div>}
+                    </Table> : <div className="lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>}
             </TableContainer>
             <Button variant="contained" sx={{mt: 5}} onClick={() => {
-                        const expired = new Date().toUTCString();
-                        document.cookie = "token=null;expires=" + expired + "; path=/";
-                        window.location.reload();
-                    }}>Выход</Button>
+                const expired = new Date().toUTCString();
+                document.cookie = "token=null;expires=" + expired + "; path=/";
+                window.location.reload();
+            }}>Выход</Button>
         </Container>
     )
 }
 
 export default MainNet;
-
