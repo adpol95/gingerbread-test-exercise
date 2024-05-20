@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Button, Container, TextField} from "@mui/material";
+import {Button, Container, TextField, Typography} from "@mui/material";
 
 function Auth() {
     const [loginIn, setLoginIn] = useState('');
@@ -16,12 +16,13 @@ function Auth() {
         })
             .then(res => res.json())
             .then(response => {
+                console.log(response)
                 document.cookie = "token=" + response.data.token + ";path=/" + ";expires=Tue, 19 Jan 2038 03:14:07 GMT";
                 window.location.reload();
             })
             .catch(err => {
                 console.log(err);
-                alert("Something goes wrong. Try again later")
+                alert("Не верные лоигин и пароль")
             })
     }
     console.log();
@@ -29,11 +30,18 @@ function Auth() {
         <Container sx={{
                        height: "100vh",
                        display: "flex",
+                       flexDirection: "column",
                        alignItems: "center",
                        justifyContent: "center",
-                       background: "rgba(0,0,0,.5)"
+                       backgroundColor: "fourth.main",
                    }}>
-        <form onSubmit={submiter} >
+                       <Typography variant="h3" sx={{
+                                       pb: 5,
+                                    color: "secondary.main"
+                                }}>
+                                    Авторизация
+                                </Typography>
+        <form onSubmit={submiter} style={{textAlign: "center"}}>
                 <div>
                     <label>
                         <TextField id="filled-basic" label="Логин" variant="filled"
@@ -54,8 +62,8 @@ function Auth() {
                         />
                     </label>
                 </div>
-            <Button type="submit"  variant="contained">
-                Submit
+            <Button type="submit"  variant="contained" color="third" sx={{mt: 2}}>
+                Войти
             </Button>
         </form>
     </Container>

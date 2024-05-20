@@ -41,8 +41,9 @@ function MainNet() {
             })
             .catch(err => {
                 console.log(err);
-                alert("Something goes wrong. Try again later")
+                alert("При попытке получения данных для таблицы произошла ошибка. Повторите попытку позже.")
             })
+            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -74,7 +75,7 @@ function MainNet() {
             })
             .catch(err => {
                 console.log(err);
-                alert("Something goes wrong. Try again later")
+                alert("Не удалось измнеить текущую позицию. Повторите попытку позже.")
             })
         }
         if (dataReady === "delete") {
@@ -94,7 +95,7 @@ function MainNet() {
                 })
                 .catch(err => {
                     console.log(err);
-                    alert("Something goes wrong. Try again later")
+                    alert("Не удалось удалить текущую позицию. Повторите попытку позже.")
                 })
         }
         if (dataReady === "new") {
@@ -115,21 +116,29 @@ function MainNet() {
                 })
                 .catch(err => {
                     console.log(err);
-                    alert("Something goes wrong. Try again later")
+                    alert("Не удалось создать новую позицию. Повторите попытку позже.")
                 })
         }
         setDataReady("");
+        setStatus(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataReady])
     return (
         <Container maxWidth="xl" sx={{
             height: "100vh",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "rgba(0,0,0,.3)",
-
-        }}>
-            <TableContainer component={Paper}>
+            backgroundColor: "fourth.main",
+                   }}>
+                       <Typography variant="h2" sx={{
+                                       pb: 5,
+                                       color: "secondary.main"
+                                   }}>
+                                       Тестовое задание.
+                                   </Typography>
+                                   <TableContainer component={Paper} sx={{textAlign: "center"}}>
                 {status ?
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <TableHead>
@@ -147,7 +156,8 @@ function MainNet() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row) => (
+                            {
+                                data.map((row) => (
                                 <TableRow
                                     key={row.id}
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
@@ -167,18 +177,24 @@ function MainNet() {
                                     <TableCell align="right">
                                         <Button type={curChange[0] === row.id ? "submit" : ""} variant="outlined" disabled={changerState && curChange[0] !== row.id} onClick={() => {
                                                     if (!changerState) setCurChange(Object.values(curChange.find(el => row.id === el.id)));
-                                                    else setDataReady("change");
+                                                    else {
+                                                        setStatus(false);
+                                                        setDataReady("change");
+                                                    }
                                                     setChangerState(!changerState);
                                                 }}>
                                             {changerState && curChange[0] === row.id ? <div>&#10003;</div>  : <div>&#9998;</div>}
                                         </Button>
                                     </TableCell>
                                     <TableCell align="right">
-                                        <Button variant="contained" disabled={changerState && curChange[0] !== row.id} onClick={() => {
+                                        <Button variant="contained" disabled={changerState && curChange[0] !== row.id} sx={{
+                                                    }
+                                                } onClick={() => {
                                                     if (changerState) {
                                                         setCurChange([...data]);
 
                                                     } else {
+                                                        setStatus(false);
                                                         setCurChange(row.id)
                                                         setDataReady("delete");
                                                     }
@@ -189,9 +205,9 @@ function MainNet() {
                                     </TableCell>
                                 </TableRow>
                             ))}
-                                {newLineState ?
-                                    <TableRow
-                                        key={2}
+                            {newLineState ?
+                                <TableRow
+                                    key={2}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                         >
                                             {newLine.map((el, i) => <TableCell align={i < 1 ? "left" : "right"}>
@@ -204,6 +220,7 @@ function MainNet() {
                                             )}
                                             <TableCell align="right">
                                                 <Button type="submit" variant="outlined" onClick={() => {
+                                                            setStatus(false);
                                                             setDataReady("new");
                                                             setNewLineState(false)
                                                         }}>
@@ -216,15 +233,24 @@ function MainNet() {
                                                 </Button>
                                             </TableCell>
                                         </TableRow> :
-                                        <TableCell align="right">
-                                        <Button variant="contained" onClick={() => setNewLineState(true)}>
-                                            <Typography>Добавить запись</Typography>
+                                        <TableRow>
+                                            <TableCell align="right">
+                                        <Button variant="contained" onClick={() => setNewLineState(true)} color="third">
+                                            <Typography>
+                                                Добавить запись
+                                            </Typography>
                                         </Button>
-                                        </TableCell>
+                                            </TableCell>
+                                        </TableRow>
                                 }
                         </TableBody>
-                    </Table> : <div> Wait</div>}
+                    </Table> : <div className="lds-ripple"><div></div><div></div></div>}
             </TableContainer>
+            <Button variant="contained" sx={{mt: 5}} onClick={() => {
+                        const expired = new Date().toUTCString();
+                        document.cookie = "token=null;expires=" + expired + "; path=/";
+                        window.location.reload();
+                    }}>Выход</Button>
         </Container>
     )
 }
