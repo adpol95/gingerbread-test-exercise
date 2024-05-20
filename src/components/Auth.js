@@ -22,7 +22,7 @@ function Auth() {
             })
             .catch(err => {
                 console.log(err);
-                alert("Не верные лоигин и пароль")
+                alert("Логин и пароль указаны не верно!")
             })
     }
     console.log();
